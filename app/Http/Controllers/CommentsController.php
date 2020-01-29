@@ -56,15 +56,17 @@ class CommentsController extends Controller
 	}
 
 	//コメントを削除する
-	public function destroy($id)
+	public function destroy($comment_id)
 	{
-		$comment = Comment::findOrFail($id);
+		$comment = Comment::findOrFail($comment_id);
 
 		\DB::transaction(function () use ($comment) {
-			$comment->comments()->delete();
+			$comment->delete();
 		});
 
-		return redirect()->route('top');
+		//getのみでは単一でないため、firstメソッドを利用
+		$post = $comment->post()->get()->first();
+		return redirect()->route('posts.show', ['post' => $post]);
 	}
 }
 

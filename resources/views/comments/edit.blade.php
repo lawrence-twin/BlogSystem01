@@ -7,7 +7,7 @@
 				コメントの編集
 			</h1>
 
-			<form method="COMMENT" action="{{ route('comments.update', ['comment' => $comment]) }}">
+			<form method="POST" action="{{ route('comments.update', ['comment' => $comment]) }}">
 				@csrf
 				@method('PUT')
 
@@ -35,7 +35,7 @@
 						</a>
 						<form
 							style="display: inline-block;"
-							method="COMMENT"
+							method="POST"
 							action"{{ route('comments.update', ['comment' => $comment]) }}">
 							@csrf
 							@method('PATCH')
@@ -46,11 +46,11 @@
 						</form>
 						<form
 							style="display: inline-block;"
-							method="COMMENT"
+							method="POST"
  		                	action="{{ route('comments.destroy', ['comment' => $comment]) }}">
 							@csrf
 							@method('DELETE')
-							<button class="btn btn-danger">削除する</button>
+							<button class="btn btn-danger">コメントを削除する</button>
 						</form>
 					</div>
 				</fieldset>
