@@ -32,7 +32,7 @@ class CommentsController extends Controller
 		return redirect()->route('posts.show', ['post' => $post]);
 	}
 
-
+	//コメント編集画面に移動
 	public function edit($id)
 	{
 		$comment = Comment::findOrFail($id);
@@ -42,7 +42,8 @@ class CommentsController extends Controller
 		]);
 	}
 
-	public function update($id)
+	//コメントを更新する
+	public function update($id, Request $request)
 	{
 		$params = $request->validate([
 			'body' => 'required|max:2000',
@@ -51,6 +52,8 @@ class CommentsController extends Controller
 		$comment = Comment::findOrFail($id);
 		$comment->fill($params)->save();
 
+		//getのみでは単一でないため、firstメソッドを利用
+		$post = $comment->post()->get()->first();
 		return redirect()->route('posts.show', ['post' => $post]);
 
 	}
