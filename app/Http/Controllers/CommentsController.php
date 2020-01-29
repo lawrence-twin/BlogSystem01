@@ -20,15 +20,15 @@ class CommentsController extends Controller
 		
 		$post = Post::findOrFail($params['post_id']);
 		$post->comments()->create($params);
-
 		return redirect()->route('posts.show', ['post' => $post]);
 	}
     
 	//投稿画面にもどる	
-	public function show($post_id)
+	public function show($comment_id)
 	{
-		$post = Post::findOrFail($post_id);
-
+		$comment = Comment::findOrFail($comment_id);
+		//getのみでは単一でないため、firstメソッドを利用
+		$post = $comment->post()->get()->first();
 		return redirect()->route('posts.show', ['post' => $post]);
 	}
 

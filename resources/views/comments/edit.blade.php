@@ -33,9 +33,17 @@
 						<a class="btn btn-sedondary" href="{{ route('comments.show', ['comment' => $comment]) }}">
 							キャンセル
 						</a>
-						<button type="submit" class="btn btn-primary">
-							更新する
-						</button>
+						<form
+							style="display: inline-block;"
+							method="COMMENT"
+							action"{{ route('comments.update', ['comment' => $comment]) }}">
+							@csrf
+							@method('PATCH')
+
+							<button type="submit" class="btn btn-primary">
+								更新する
+							</button>
+						</form>
 						<form
 							style="display: inline-block;"
 							method="COMMENT"
