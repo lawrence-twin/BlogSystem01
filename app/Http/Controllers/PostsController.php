@@ -22,11 +22,24 @@ class PostsController extends Controller
 
 	public function store(Request $request)
 	{
+
+		//image_urlに設定を入れるため一旦初期化
+		$params = array('title'=>"", 'body'=>"", 'image_url'=>"");
 		$params = $request->validate([
 			'title' => 'required|max:50',
 			'body' => 'required|max:2000',
 		]);
 
+		if ($request->hasFile('image_url'))
+		{
+			$time = time();		//暫定的な日時で画像ファイルを保存する
+								//余裕があったらユーザIDもつける
+			$image_url = $request->image_url->storeAs(
+				'public/post_images', 
+				$time . '.jpg'
+			);
+			$params['image_url'] = $image_url;
+		}
 		Post::create($params);
 
 		return redirect()->route('top');
@@ -38,6 +51,7 @@ class PostsController extends Controller
 
 		return view('posts.show', [
 			'post' => $post,
+			'image_url' => str_replace('public/', 'storage/', $post->image_url),
 		]);
 	}
 
@@ -74,5 +88,5 @@ class PostsController extends Controller
     
 		return redirect()->route('top');
 	}
-	
+
 }

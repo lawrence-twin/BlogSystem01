@@ -16,7 +16,9 @@
 			<p class="mb-5">
 				{!! nl2br(e($post->body)) !!}
 			</p>
-
+			@if ($image_url)
+			<p>画像：<img src ="/{{ $image_url }}"></p>
+			@endif
 			<section>
 				<h2 class="h5 mb-4">
 					コメント
@@ -49,7 +51,7 @@
 						</div>
 					@endif
 				</div>
-
+				
 				<div class="mt-4">
 					<button type="submit" class="btn btn-primary">
 						コメントする！
