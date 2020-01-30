@@ -7,7 +7,7 @@
 				投稿の編集
 			</h1>
 
-			<form method="POST" action="{{ route('posts.update', ['post' => $post]) }}">
+			<form method="POST" action="{{ route('posts.update', ['post' => $post]) }}" enctype="multipart/form-data">
 				@csrf
 				@method('PUT')
 
@@ -49,6 +49,10 @@
 						@endif
 					</div>
 
+					<div class="form-image_url">
+   						<input type="file" name="image_url"> 
+					</div>
+					
 					<div class="mt-5">
 						<a class="btn btn-sedondary" href="{{ route('posts.show', ['post' => $post]) }}">
 							キャンセル
