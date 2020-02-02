@@ -9,6 +9,9 @@
 			</a>
 		</div>
 		<div class="border p-4">
+			@if ($image_url)
+			<p><img src ="/{{ $image_url }}"></p>
+			@endif
 			<h1 class="h5 mb-4">
 				{{ $post->title }}
 			</h1>
@@ -16,9 +19,6 @@
 			<p class="mb-5">
 				{!! nl2br(e($post->body)) !!}
 			</p>
-			@if ($image_url)
-			<p>画像：<img src ="/{{ $image_url }}"></p>
-			@endif
 			<section>
 				<h2 class="h5 mb-4">
 					コメント
