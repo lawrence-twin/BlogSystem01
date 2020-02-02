@@ -17,6 +17,9 @@ Route::resource('posts', 'PostsController', ['only' => ['create', 'store', 'show
 
 Route::resource('comments', 'CommentsController', ['only' => ['store', 'show', 'edit', 'update', 'destroy']]);
 
+Route::get('/about', function() {
+		return view('about');
+});
 
 Auth::routes();
 
