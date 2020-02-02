@@ -1,14 +1,21 @@
 @extends('layout')
 
 @section('content')
-	<div clas="container mt-4">
-		<div class"=mb-4">
+	<div clas="container p-5">
+		<div class"=text-right">
 			<a href="{{ route('posts.create') }}" class="btn btn-primary">
-				投稿を新規作成する
+				投稿を新規作成
 			</a>
 		</div>
 		@foreach ($posts as $post)
 		    <div class="card mb-4">
+			@if ($post->image_url)
+				<a class="card-link" href="{{ route('posts.show', ['post' => $post]) }}">
+					<img src ="/{{ str_replace('public/','storage/', $post->image_url), }}">
+				</a>
+            @else
+				<p>No Image</p>
+			@endif
 			<div class="card-header">
 				{{ $post->title }}
 			</div>

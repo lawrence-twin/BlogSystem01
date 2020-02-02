@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Laravel BBS</title>
+	<title>Meu Blog</title>
 
 	<link
 		rel="stylesheet"
@@ -12,11 +12,34 @@
 	>
 </head>
 <body>
-	<header class="navbar navbar-dark bg-dark">
+	<header class="navbar navbar-dark bg-success">
 		<div class="container">
 			<a class="navbar-brand" href="{{ url('') }}">
-				Laravel BBS
+				Meu Blog
 			</a>
+
+			@if(Auth::check())
+			<div class="justify-content-end">
+				<span class="my-navbar-item"> {{ Auth::user()->name }} さん</span>
+				|
+				<a href="#" id="logout" class="my-navbar-item">ログアウト</a>
+				<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+				 @csrf
+				</form>
+			@else
+                <div class="top-right links">
+                    @auth
+                        <a href="{{ url('/home') }}">Home</a>
+                    @else
+                        <a href="{{ route('login') }}">ログイン</a>
+                        |
+						<a href="{{ route('register') }}">ユーザ登録</a>
+                    @endauth
+                </div>
+			@endif
+			|
+			<a href="{{ url('about') }}">about</a>
+			</div>
 		</div>
 	</header>
 	
