@@ -21,7 +21,9 @@
 					<img class="card-img-top" src ="/{{ str_replace('public/','storage/', $post->image_url), }}">
 				</a>
             @else
-				<p>No Image</p>
+				<a href="{{ route('posts.show', ['post' => $post]) }}">
+					<img class="card-img-top" src ="storage/default/unnamed.png">
+				</a>
 			@endif
 				<div class="card-header">
 					<a href="{{ route('posts.show', ['post' => $post]) }}">
