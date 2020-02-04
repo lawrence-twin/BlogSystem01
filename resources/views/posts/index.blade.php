@@ -51,6 +51,9 @@
 				</div>
 			@endif
 		@endforeach
+		@if (!$newlineflg)
+			</div>
+		@endif
 		<div class="d-flex justify-content-center mb-5">
 			{{ $posts->links() }}
 		</div>

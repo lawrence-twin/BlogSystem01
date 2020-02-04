@@ -27,15 +27,14 @@
 				 @csrf
 				</form>
 			@else
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">ログイン</a>
-                        |
-						<a href="{{ route('register') }}">ユーザ登録</a>
-                    @endauth
-                </div>
+			<div class="justify-content-end">
+            	@auth
+            		<a href="{{ url('/home') }}">Home</a>
+				@else
+            		<a href="{{ route('login') }}">ログイン</a>
+						|
+					<a href="{{ route('register') }}">ユーザ登録</a>
+            	@endauth
 			@endif
 			|
 			<a href="{{ url('about') }}">about</a>

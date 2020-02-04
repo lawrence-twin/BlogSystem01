@@ -12,7 +12,7 @@ class PostsController extends Controller
 		//SQLチューニング(Commentsの取得方法を改善)
 		//$posts = Post::orderBy('created_at', 'desc')->paginate(10);
 		$posts = Post::with(['comments'])->orderBy('created_at', 'desc')->paginate(10);
-
+		
 		return view('posts.index', ['posts' => $posts]);
     }
 
