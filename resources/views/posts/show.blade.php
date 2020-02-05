@@ -4,11 +4,13 @@
 
 	<div class="container= mt-4">
 		@auth
-		<div class="mb-4 text-right">
-			<a class="btn btn-primary" href="{{ route('posts.edit', ['post' => $post]) }}">
-				編集する
-			</a>
-		</div>
+			@if ($user->id === $post->user_id)
+			<div class="mb-4 text-right">
+				<a class="btn btn-primary" href="{{ route('posts.edit', ['post' => $post]) }}">
+					編集する
+				</a>
+			</div>
+			@endif
 		@endif
 		<div class="border p-4">
 			@if ($image_url)
