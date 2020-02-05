@@ -13,6 +13,9 @@
 			@endif
 		@endif
 		<div class="border p-4">
+			<h5 class="ht mb-4">
+			投稿者：{{ $post->user->name }} 様
+			</h5>
 			@if ($image_url)
 			<p><img src ="/{{ $image_url }}"></p>
 			@endif

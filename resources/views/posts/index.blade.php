@@ -12,12 +12,12 @@
 		<?php $newlineflg = TRUE; ?>
 		@foreach ($posts as $post)
 			@if ($newlineflg)
-				<div class="card-deck" style="width: 50rem;">
+				<div class="row">
 				<?php $newlineflg = FALSE; ?>
 			@else
 				<?php $newlineflg = TRUE; ?>
 			@endif
-			<div class="card">
+			<div class="card w-25 d-inline-block m-5">
 			@if ($post->image_url)
 				<a href="{{ route('posts.show', ['post' => $post]) }}">
 					<img class="card-img-top" src ="/{{ str_replace('public/','storage/', $post->image_url), }}">
