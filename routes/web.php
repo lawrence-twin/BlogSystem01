@@ -13,7 +13,11 @@
 
 Route::get('/', 'PostsController@index')->name('top');
 
-Route::resource('posts', 'PostsController', ['only' => ['create', 'store', 'show', 'edit', 'update', 'destroy']]);
+Route::resource('posts', 'PostsController', ['only' => ['show']]);
+
+// 記事更新系はユーザ権限必須
+Route::resource('posts', 'PostsController', ['only' => ['create', 'store', 'edit', 'update', 'destroy']])->middleware('auth');
+
 
 Route::resource('comments', 'CommentsController', ['only' => ['store', 'show', 'edit', 'update', 'destroy']]);
 

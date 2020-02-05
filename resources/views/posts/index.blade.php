@@ -2,11 +2,13 @@
 
 @section('content')
 	<div class="container= mt-4">
+		@auth
 		<div class="mb-4 text-right">
 			<a href="{{ route('posts.create') }}" class="btn btn-primary">
 				投稿を新規作成
 			</a>
 		</div>
+		@endauth
 		<?php $newlineflg = TRUE; ?>
 		@foreach ($posts as $post)
 			@if ($newlineflg)

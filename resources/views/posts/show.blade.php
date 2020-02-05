@@ -3,11 +3,13 @@
 @section('content')
 
 	<div class="container= mt-4">
+		@auth
 		<div class="mb-4 text-right">
 			<a class="btn btn-primary" href="{{ route('posts.edit', ['post' => $post]) }}">
 				編集する
 			</a>
 		</div>
+		@endif
 		<div class="border p-4">
 			@if ($image_url)
 			<p><img src ="/{{ $image_url }}"></p>
