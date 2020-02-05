@@ -13,10 +13,12 @@
 
 Route::get('/', 'PostsController@index')->name('top');
 
-Route::resource('posts', 'PostsController', ['only' => ['show']]);
+// こちらにもcreateを定義しないとページ遷移できない
+// 理由がわからない
+Route::resource('posts', 'PostsController', ['only' => ['create', 'show']]);
 
 // 記事更新系はユーザ権限必須
-Route::resource('posts', 'PostsController', ['only' => ['create', 'store', 'edit', 'update', 'destroy']])->middleware('auth');
+Route::resource('posts', 'PostsController', ['only' => ['store', 'create', 'edit', 'update', 'destroy']])->middleware('auth');
 
 
 Route::resource('comments', 'CommentsController', ['only' => ['store', 'show', 'edit', 'update', 'destroy']]);
