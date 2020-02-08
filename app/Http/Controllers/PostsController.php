@@ -44,7 +44,8 @@ class PostsController extends Controller
 			{
 			
 				$ext = $img->guessExtension();
-				$filename = "{$params['user_id']}_{$index}.{$ext}";
+				$time = time();
+				$filename = "{$params['user_id']}_{$index}_{$time}.{$ext}";
 				$path = $img->storeAs('public/post_images', $filename);
 	
 				//紐付けられた画像の投稿
@@ -107,7 +108,8 @@ class PostsController extends Controller
 			foreach ($request->file('images') as $index=> $img)
 			{
 				$ext = $img->guessExtension();
-				$filename = "{$params['user_id']}_{$index}.{$ext}";
+				$time = time();
+				$filename = "{$params['user_id']}_{$index}_{$time}.{$ext}";
 				$path = $img->storeAs('public/post_images', $filename);
 	
 				//紐付けられた画像の投稿
