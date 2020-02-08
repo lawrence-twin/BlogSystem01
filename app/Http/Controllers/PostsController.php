@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Post;
 use Auth;
+use App\Image;
 
 class PostsController extends Controller
 {
@@ -25,26 +26,31 @@ class PostsController extends Controller
 	{
 
 		//image_urlに設定を入れるため一旦初期化
-		$params = array('user_id'=>0,'title'=>"", 'body'=>"", 'image_url'=>"");
+		$params = array('user_id'=>0,'title'=>"", 'body'=>"");
 		$params = $request->validate([
 			'title' => 'required|max:50',
 			'body' => 'required|max:2000',
 		]);
 
 		$params['user_id'] = Auth::id();
-		if ($request->hasFile('image_url'))
+		
+		//投稿の保存
+		$post = Post::create($params);
+
+		//画像の保存機能
+		if ($request->hasfile('images'))
 		{
-			$time = time();		//暫定的な日時で画像ファイルを保存する
-								//余裕があったらユーザIDもつける
-			$image_url = $request->image_url->storeAs(
-				'public/post_images', 
-				$time . '.jpg'
-			);
-			$params['image_url'] = $image_url;
+			foreach ($request->file('images') as $index=> $img)
+			{
+			
+				$ext = $img->guessExtension();
+				$filename = "{$params['user_id']}_{$index}.{$ext}";
+				$path = $img->storeAs('public/post_images', $filename);
+	
+				//紐付けられた画像の投稿
+				$post->images()->create(['path'=> $path]);
+			}
 		}
-
-		Post::create($params);
-
 		return redirect()->route('top');
 	}
 	
@@ -56,7 +62,6 @@ class PostsController extends Controller
 
 		return view('posts.show', [
 			'post' => $post,
-			'image_url' => str_replace('public/', 'storage/', $post->image_url),
 			'user' => $user
 		]);
 	}
@@ -82,7 +87,7 @@ class PostsController extends Controller
 	public function update($post_id, Request $request)
 	{
 		//image_urlに設定を入れるため一旦初期化
-		$params = array('user_id'=>0,'title'=>"", 'body'=>"", 'image_url'=>"");
+		$params = array('user_id'=>0,'title'=>"", 'body'=>"");
 		$params = $request->validate([
 			'title' => 'required|max:50',
 			'body' => 'required|max:2000',
@@ -90,19 +95,25 @@ class PostsController extends Controller
 
 		$params['user_id'] = Auth::id();
 
-		if ($request->hasFile('image_url'))
-		{
-			$time = time();		//暫定的な日時で画像ファイルを保存する
-								//余裕があったらユーザIDもつける
-			$image_url = $request->image_url->storeAs(
-				'public/post_images', 
-				$time . '.jpg'
-			);
-			$params['image_url'] = $image_url;
-		}
-		
 		$post = Post::findOrFail($post_id);
 		$post->fill($params)->save();
+		
+		//画像の保存機能
+		if ($request->hasfile('images'))
+		{
+			\DB::transaction(function () use ($post) {
+				$post->images()->delete();
+			});
+			foreach ($request->file('images') as $index=> $img)
+			{
+				$ext = $img->guessExtension();
+				$filename = "{$params['user_id']}_{$index}.{$ext}";
+				$path = $img->storeAs('public/post_images', $filename);
+	
+				//紐付けられた画像の投稿
+				$post->images()->create(['path'=> $path]);
+			}
+		}
 
 		return redirect()->route('posts.show', ['post' => $post]);
 	}

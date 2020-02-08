@@ -18,9 +18,9 @@
 				<?php $newlineflg = TRUE; ?>
 			@endif
 			<div class="card w-25 d-inline-block m-5">
-			@if ($post->image_url)
+			@if ($post->images()->first())
 				<a href="{{ route('posts.show', ['post' => $post]) }}">
-					<img class="card-img-top" src ="/{{ str_replace('public/','storage/', $post->image_url), }}">
+					<img class="card-img-top" src ="/{{ str_replace('public/','storage/', $post->images()->first()->path), }}">
 				</a>
             @else
 				<a href="{{ route('posts.show', ['post' => $post]) }}">
@@ -42,7 +42,8 @@
 				</a>
 				<div class="card-footer">
 					<span class="mr-2">
-						投稿日時 {{ $post->created_at->format('Y.m.d') }}
+						投稿日時:{{ $post->created_at->format('Y.m.d') }}
+						投 稿 者:{{ $user->name) }}
 					</span>
 					@if ($post->comments->count())
 						<span class="badge badge-primary">

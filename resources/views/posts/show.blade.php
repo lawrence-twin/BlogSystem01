@@ -11,14 +11,17 @@
 				</a>
 			</div>
 			@endif
-		@endif
+		@endauth
 		<div class="border p-4">
 			<h5 class="ht mb-4">
 			投稿者：{{ $post->user->name }} 様
 			</h5>
-			@if ($image_url)
-			<p><img src ="/{{ $image_url }}"></p>
-			@endif
+			@forelse($post->images as $image)
+				<p><img src="/{{ str_replace('public/','storage/', $image->path), }}"></p>
+			@empty
+				<p>画像なし</p>
+			@endforelse
+
 			<h1 class="h5 mb-4">
 				{{ $post->title }}
 			</h1>
