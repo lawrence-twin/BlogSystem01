@@ -48,7 +48,7 @@
 					</div>
 					
 					<div class="form-image_url">
-   						<input type="file" class=form-control" name="images[]" multiple> 
+   						複数可：<input type="file" class=form-control" name="images[]" multiple> 
 					</div>
 
 					<div class="mt-5">

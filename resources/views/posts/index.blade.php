@@ -24,7 +24,7 @@
 				</a>
             @else
 				<a href="{{ route('posts.show', ['post' => $post]) }}">
-					<img class="card-img-top" src ="storage/default/unnamed.png">
+					<img class="card-img-top" src="{{ asset('img/unnamed.png') }}">
 				</a>
 			@endif
 				<div class="card-header">
@@ -42,8 +42,8 @@
 				</a>
 				<div class="card-footer">
 					<span class="mr-2">
-						投稿日時:{{ $post->created_at->format('Y.m.d') }}
-						投 稿 者:{{ $user->name) }}
+						投稿日時:{{ $post->created_at->format('Y.m.d') }}<br>
+						投 稿 者:{{ $post->user->name }}
 					</span>
 					@if ($post->comments->count())
 						<span class="badge badge-primary">
