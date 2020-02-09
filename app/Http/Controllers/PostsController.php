@@ -30,6 +30,7 @@ class PostsController extends Controller
 		$params = $request->validate([
 			'title' => 'required|max:50',
 			'body' => 'required|max:2000',
+			'images.*' => 'image|mimes:jpeg,bmp,png',
 		]);
 
 		$params['user_id'] = Auth::id();
@@ -92,6 +93,7 @@ class PostsController extends Controller
 		$params = $request->validate([
 			'title' => 'required|max:50',
 			'body' => 'required|max:2000',
+			'images.*' => 'image|mimes:jpeg,bmp,png',
 		]);
 
 		$params['user_id'] = Auth::id();
