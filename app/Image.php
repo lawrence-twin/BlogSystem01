@@ -2,6 +2,7 @@
 
 namespace App;
 
+//test comment.
 use Illuminate\Database\Eloquent\Model;
 
 class Image extends Model
