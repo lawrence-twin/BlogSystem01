@@ -2,7 +2,6 @@
 
 namespace App;
 //test
-//test
 //test cm
 //test comment.
 use Illuminate\Database\Eloquent\Model;
